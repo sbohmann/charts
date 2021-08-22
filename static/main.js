@@ -3,7 +3,7 @@ import { data } from './data.js'
 import { LogarithmicScaling } from './logarithmicScaling.js'
 import { LinearScaling } from './linearScaling.js'
 
-const scaling = LogarithmicScaling(data, 120)
+const scaling = LogarithmicScaling(data, 12000)
 // const scaling = LinearScaling(data)
 
 function initialize() {
