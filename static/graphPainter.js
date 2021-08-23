@@ -16,22 +16,22 @@ export function GraphPainter(canvas, data) {
     }
 
     function determineDrawingBounds() {
-         xStart = 15
-         xEnd = canvas.width - 15
-         yStart = canvas.height - 15
-         yEnd = 15
+        xStart = 15
+        xEnd = canvas.width - 15
+        yStart = canvas.height - 15
+        yEnd = 15
     }
 
     function determineDataBounds() {
         data.forEach(set => {
             if (!n || set.points.length > n) {
-                n= set.points.length
+                n = set.points.length
             }
             set.points.forEach(point => {
-                if (!yMin || point < yMin) {
+                if (point !== null && (!yMin || point < yMin)) {
                     yMin = point
                 }
-                if (!yMax || point > yMax) {
+                if (point !== null && (!yMax || point > yMax)) {
                     yMax = point
                 }
             })
@@ -46,18 +46,20 @@ export function GraphPainter(canvas, data) {
     }
 
     function paintDataSet(set) {
-        let index = 0
-        while (index < set.points.length) {
-            let x = xStart + index * xScale
-            let y = yStart + (set.points[index] - yMin) * yScale
-            if (index === 0) {
-                context.moveTo(x, y)
-            } else {
-                context.lineTo(x, y)
+        let pointsConsidered = 0
+        for (let index = 0; index < set.points.length; ++index) {
+            if (set.points[index] !== null) {
+                let x = xStart + index * xScale
+                let y = yStart + (set.points[index] - yMin) * yScale
+                if (pointsConsidered === 0) {
+                    context.moveTo(x, y)
+                } else {
+                    context.lineTo(x, y)
+                }
+                ++pointsConsidered
             }
-            ++index
         }
-        if (index > 1) {
+        if (pointsConsidered > 0) {
             context.stroke()
         }
     }

@@ -1,10 +1,5 @@
-export function LogarithmicScaling(data, threshold) {
-    let transformedThreshold
+export function LogarithmicScaling(data, positiveOnly) {
     let transformedData
-
-    function init() {
-        transformedThreshold = transformDataPoint(threshold)
-    }
 
     function buildTransformedData() {
         if (!transformedData) {
@@ -21,17 +16,21 @@ export function LogarithmicScaling(data, threshold) {
     }
 
     function transformDataPoint(value) {
-        if (value < threshold) {
+        if (value === null) {
+            return null
+        }
+        if (positiveOnly && value < 0) {
+            return null
+        }
+        if (value < Math.E) {
             return interpolatedValue(value)
         }
-        return Math.log10(value)
+        return Math.log(value)
     }
 
     function interpolatedValue(value) {
-        return (value / threshold) * transformedThreshold
+        return value / Math.E
     }
-
-    init()
 
     return {
         get transformedData() {
