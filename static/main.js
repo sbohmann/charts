@@ -39,7 +39,8 @@ function initialize() {
     function connectSettings() {
         const linearButton = document.getElementById('linear')
         const logarithmicButton = document.getElementById('logarithmic')
-        ;(logarithmic ? logarithmicButton : linearButton).checked = true
+        const activeButton = logarithmic ? logarithmicButton : linearButton
+        activeButton.checked = true
         linearButton.onclick = () => setLogarithmicScaling(false)
         logarithmicButton.onclick = () => setLogarithmicScaling(true)
     }
