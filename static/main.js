@@ -4,7 +4,9 @@ import {LogarithmicScaling} from './logarithmicScaling.js'
 import {LinearScaling} from './linearScaling.js'
 import {buildPaddedData} from './dataPadding.js'
 
-const paddedData = buildPaddedData(fake)
+const USE_FAKE_DATA = true
+
+const paddedData = buildPaddedData(USE_FAKE_DATA ? fake : data)
 
 const linearScaling = LinearScaling(paddedData, true)
 const logarithmicScaling = LogarithmicScaling(paddedData, true)
