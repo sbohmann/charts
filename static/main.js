@@ -1,10 +1,10 @@
 import {GraphPainter} from './graphPainter.js'
-import {data} from './data.js'
+import {data, fake} from './data.js'
 import {LogarithmicScaling} from './logarithmicScaling.js'
 import {LinearScaling} from './linearScaling.js'
 import {buildPaddedData} from './dataPadding.js'
 
-const paddedData = buildPaddedData(data)
+const paddedData = buildPaddedData(fake)
 
 const linearScaling = LinearScaling(paddedData, true)
 const logarithmicScaling = LogarithmicScaling(paddedData, true)
