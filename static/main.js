@@ -1,16 +1,19 @@
 import {GraphPainter} from './graphPainter.js'
-import {data, fake} from './data.js'
+import {data} from './data.js'
 import {LogarithmicScaling} from './logarithmicScaling.js'
 import {LinearScaling} from './linearScaling.js'
+import {buildPaddedData} from './dataPadding.js'
 
-const linearScaling = LinearScaling(data, true)
-const logarithmicScaling = LogarithmicScaling(data, true)
+const paddedData = buildPaddedData(data)
+
+const linearScaling = LinearScaling(paddedData, true)
+const logarithmicScaling = LogarithmicScaling(paddedData, true)
 
 let logarithmic = true
-let currentScaling
+let scaling
 
 function setCurrentScaling() {
-    currentScaling = logarithmic ? logarithmicScaling : linearScaling
+    scaling = logarithmic ? logarithmicScaling : linearScaling
 }
 
 setCurrentScaling()
@@ -27,7 +30,7 @@ function initialize() {
     }
 
     function createGraphPainter() {
-        graphPainter = GraphPainter(canvas, currentScaling.transformedData)
+        graphPainter = GraphPainter(canvas, scaling.transformedData)
     }
 
     function refreshCanvas() {

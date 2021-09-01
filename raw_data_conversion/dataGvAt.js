@@ -2,7 +2,7 @@ const fs = require('fs')
 const joda = require('@js-joda/core')
 const output = require('./output')
 
-const points = fs.readFileSync('raw_data/timeline-faelle-ems.csv', 'utf-8')
+const accumulation = fs.readFileSync('raw_data/timeline-faelle-ems.csv', 'utf-8')
     .split(/\n/)
     .flatMap(line => {
         let match = line.match(/(\d{4})-(\d{2})-(\d{2}).*Österreich;(\d+)/)
@@ -17,6 +17,18 @@ const points = fs.readFileSync('raw_data/timeline-faelle-ems.csv', 'utf-8')
         }
         return []
     })
+
+const points = []
+let previous = null
+for (const rawPoint of accumulation) {
+    if (previous) {
+        points.push({
+            date: rawPoint.date,
+            value: rawPoint.value - previous.value
+        })
+    }
+    previous = rawPoint
+}
 
 console.log(points)
 

@@ -41,6 +41,7 @@ module.exports.forDatasets = function (datasetNames, dataRows) {
             }
             output.push({
                 name: name,
+                firstDate: minimumDate,
                 points: values
             })
         }
