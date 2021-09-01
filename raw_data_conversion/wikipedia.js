@@ -1,7 +1,8 @@
 const fs = require('fs')
 const joda = require('@js-joda/core')
+const output = require('./output')
 
-datasets = [
+const datasets = [
     {
         name: 'inzidenzen',
         dataColumn: 11
@@ -33,10 +34,10 @@ for (const dataset of datasets) {
                 const date = joda.LocalDate
                     .of(Number(dateMatch[3]), Number(dateMatch[2]), Number(dateMatch[1]))
                 const value = Number(parts[dataset.dataColumn])
-                return {
+                return [{
                     date,
                     value
-                }
+                }]
             }
             return []
         })
@@ -44,38 +45,7 @@ for (const dataset of datasets) {
     dataRows.set(dataset.name, points)
 }
 
-let minimumDate, maximumDate
-for (const dataPoint of datasets.flatMap(dataset => dataRows.get(dataset.name))) {
-    if (!minimumDate || dataPoint.date.compareTo(minimumDate) < 0) {
-        minimumDate = dataPoint.date
-    }
-    if (!maximumDate || dataPoint.date.compareTo(maximumDate) > 0) {
-        maximumDate = dataPoint.date
-    }
-}
+const datasetNames = datasets.map(set => set.name)
+const result = output.forDatasets(datasetNames, dataRows)
 
-let data = new Map()
-for (let date = minimumDate; date.compareTo(maximumDate) <= 0; date = date.plusDays(1)) {
-    data.set(date.toString(), new Map())
-}
-for (const dataset of datasets) {
-    for (const row of dataRows.get(dataset.name)) {
-        data.get(row.date.toString()).set(dataset.name, row.value)
-    }
-}
-
-console.log(data)
-
-let output = []
-for (const dataset of datasets) {
-    let values = []
-    for (let date = minimumDate; date.compareTo(maximumDate) <= 0; date = date.plusDays(1)) {
-        values.push(data.get(date.toString()).get(dataset.name))
-    }
-    output.push({
-        name: dataset.name,
-        points: values
-    })
-}
-
-fs.writeFileSync('data/wikipedia.json', JSON.stringify(output))
+fs.writeFileSync('data/wikipedia.json', JSON.stringify(result))

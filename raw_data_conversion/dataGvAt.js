@@ -1,25 +1,30 @@
-fs = require('fs')
+const fs = require('fs')
+const joda = require('@js-joda/core')
+const output = require('./output')
 
-const points = fs.
-    readFileSync('raw_data/timeline-faelle-ems.csv', 'utf-8')
+const points = fs.readFileSync('raw_data/timeline-faelle-ems.csv', 'utf-8')
     .split(/\n/)
     .flatMap(line => {
-        let match = line.match(/.*Österreich;(\d+)/)
+        let match = line.match(/(\d{4})-(\d{2})-(\d{2}).*Österreich;(\d+)/)
         if (match) {
-            return [match[1]]
+            const date = joda.LocalDate
+                .of(Number(match[1]), Number(match[2]), Number(match[3]))
+            const value = Number(match[4])
+            return [{
+                date,
+                value
+            }]
         }
         return []
     })
 
 console.log(points)
 
-fs.writeFileSync('data/inzidenzen.json', JSON.stringify({
-    name: "Inzidenzen",
-    points
-}))
+let datasetName = 'inzidenzen'
+const datasets = [datasetName]
+const dataRows = new Map()
+dataRows.set(datasetName, points)
 
+const result = output.forDatasets(datasets, dataRows)
 
-fs.writeFileSync('data/inzidenzen_durch_100.json', JSON.stringify({
-    name: "Inzidenzen",
-    points: points.map(value => value / 100)
-}))
+fs.writeFileSync('data/inzidenzen.json', JSON.stringify(result))
