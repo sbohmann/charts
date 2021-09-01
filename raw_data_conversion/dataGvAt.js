@@ -2,6 +2,9 @@ const fs = require('fs')
 const joda = require('@js-joda/core')
 const output = require('./output')
 
+// TODO pull from https://info.gesundheitsministerium.gv.at/data/timeline-faelle-ems.csv
+// TODO pull from https://covid19-dashboard.ages.at/data/Hospitalisierung.csv
+
 const accumulation = fs.readFileSync('raw_data/timeline-faelle-ems.csv', 'utf-8')
     .split(/\n/)
     .flatMap(line => {
