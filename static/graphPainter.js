@@ -9,7 +9,9 @@ export function GraphPainter(canvas, data) {
         determineDrawingBounds()
         determineDataBounds()
         determineScales()
-        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.clearRect(0, 0, canvas.width, canvas.height)
+        context.fillStyle = "#ffeedd"
+        context.fillRect(0, 0, canvas.width, canvas.height)
         context.strokeStyle = "#33335599"
         context.lineWidth = 5
         data.forEach(paintDataSet)
@@ -46,6 +48,7 @@ export function GraphPainter(canvas, data) {
     }
 
     function paintDataSet(set) {
+        context.beginPath()
         let pointsConsidered = 0
         for (let index = 0; index < set.points.length; ++index) {
             if (set.points[index] !== null) {
