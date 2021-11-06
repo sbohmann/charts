@@ -12,7 +12,6 @@ export function GraphPainter(canvas, data) {
         context.clearRect(0, 0, canvas.width, canvas.height)
         context.fillStyle = "#ffeedd"
         context.fillRect(0, 0, canvas.width, canvas.height)
-        context.strokeStyle = "#33335599"
         context.lineWidth = 5
         data.forEach(paintDataSet)
     }
@@ -48,10 +47,24 @@ export function GraphPainter(canvas, data) {
     }
 
     function paintDataSet(set) {
+        context.strokeStyle = colorForDataSet(set)
         context.beginPath()
         let pointsConsidered = paintDataSetPath(set)
         if (pointsConsidered > 0) {
             context.stroke()
+        }
+    }
+
+    function colorForDataSet(set) {
+        switch (set.name) {
+            case 'inzidenzen':
+                return '#99335599'
+            case 'hospitalisierung':
+                return '#33995599'
+            case 'intensiv':
+                return '#3333cc99'
+            default:
+                return "#33335599"
         }
     }
 
