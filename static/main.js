@@ -32,7 +32,7 @@ function initialize() {
     }
 
     function createGraphPainter() {
-        graphPainter = GraphPainter(canvas, scaling.transformedData)
+        graphPainter = GraphPainter(canvas, scaling)
     }
 
     function refreshCanvas() {

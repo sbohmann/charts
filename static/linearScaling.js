@@ -10,6 +10,9 @@ export function LinearScaling(data, positiveOnly) {
                 })
             }
             return data
+        },
+        transformValue(value) {
+            return value
         }
     }
 }

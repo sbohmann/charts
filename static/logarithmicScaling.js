@@ -45,31 +45,14 @@ export function LogarithmicScaling(data, positiveOnly) {
         return value / Math.E
     }
 
-    function firstLabelIndex() {
-        let rawExponent = Math.log10(minimumValue)
-        let minimumExponent = Math.floor(rawExponent)
-        let resultingIndex = minimumExponent * 3
-        let value = Math.pow(10, minimumExponent)
-        if (value >= minimumValue) {
-            return resultingIndex
-        }
-        ++resultingIndex
-        value *= 2
-        if (value >= minimumValue) {
-            return resultingIndex
-        }
-        return resultingIndex + 1
-    }
-
     init()
 
     return {
         get transformedData() {
             return buildTransformedData()
         },
-        get nextLabel() {
-            let currentLabelIndex = firstLabelIndex()
-            return () => labelForIndex(currentLabelIndex++)
+        transformValue(value) {
+            return transformDataPoint(value)
         }
     }
 }

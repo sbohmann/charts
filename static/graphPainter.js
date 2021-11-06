@@ -1,5 +1,6 @@
-export function GraphPainter(canvas, data) {
+export function GraphPainter(canvas, scaling) {
     const context = canvas.getContext('2d')
+    const data = scaling.transformedData
 
     let xStart, xEnd, yStart, yEnd
     let n, yMin, yMax
@@ -13,14 +14,15 @@ export function GraphPainter(canvas, data) {
         context.fillStyle = "#ffeedd"
         context.fillRect(0, 0, canvas.width, canvas.height)
         context.lineWidth = 5
+        drawYAxisLines()
         data.forEach(paintDataSet)
     }
 
     function determineDrawingBounds() {
-        xStart = 15
-        xEnd = canvas.width - 15
-        yStart = canvas.height - 15
-        yEnd = 15
+        xStart = 150
+        xEnd = canvas.width - 150
+        yStart = canvas.height - 150
+        yEnd = 150
     }
 
     function determineDataBounds() {
@@ -44,6 +46,52 @@ export function GraphPainter(canvas, data) {
         const deltaY = yEnd - yStart
         xScale = deltaX / (n - 1)
         yScale = deltaY / (yMax - yMin)
+    }
+
+    function drawYAxisLines() {
+        context.strokeStyle = '#33335533'
+        context.beginPath()
+        let nextValue = nextYAxisValue()
+        while (true) {
+            let value = nextValue.get()
+            let y = yForValue(scaling.transformValue(value))
+            context.moveTo(0, y)
+            context.lineTo(canvas.width, y)
+            if (y < 0) {
+                break
+            }
+        }
+        context.stroke()
+    }
+
+    function nextYAxisValue() {
+        let next
+        let state = -1
+        let base = 1
+        return {
+            get() {
+                switch (state) {
+                    case 0:
+                        next = base
+                        break
+                    case 1:
+                        next = base * 2
+                        break
+                    case 2:
+                        next = base * 5
+                        break
+                    case 3:
+                        base *= 10
+                        next = base
+                        break
+                    default:
+                        next = 0
+                }
+                state = (state + 1) % 4
+                console.log(next)
+                return next
+            }
+        }
     }
 
     function paintDataSet(set) {
@@ -73,7 +121,7 @@ export function GraphPainter(canvas, data) {
         for (let index = 0; index < set.points.length; ++index) {
             if (set.points[index] !== null) {
                 let x = xStart + index * xScale
-                let y = yStart + (set.points[index] - yMin) * yScale
+                let y = yForValue(set.points[index])
                 if (pointsConsidered === 0) {
                     context.moveTo(x, y)
                 } else {
@@ -83,6 +131,10 @@ export function GraphPainter(canvas, data) {
             }
         }
         return pointsConsidered
+    }
+
+    function yForValue(value) {
+        return yStart + (value - yMin) * yScale
     }
 
     return {
