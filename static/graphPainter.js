@@ -22,7 +22,7 @@ export function GraphPainter(canvas, scaling) {
         xStart = 100
         xEnd = canvas.width - 15
         yStart = canvas.height - 15
-        yEnd = 15
+        yEnd = 25
     }
 
     function determineDataBounds() {
@@ -60,7 +60,7 @@ export function GraphPainter(canvas, scaling) {
                 context.beginPath()
                 context.moveTo(xStart, y)
                 context.lineTo(xEnd, y)
-                if (y < 0) {
+                if (y < 5) {
                     break
                 }
                 lastY = y
