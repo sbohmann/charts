@@ -32,7 +32,6 @@ export function GraphPainter(canvas, scaling) {
             }
             set.points.forEach(point => {
                 if (point !== null && (yMin === undefined || point < yMin)) {
-                    console.log("yMin goes down to ", point)
                     yMin = point
                 }
                 if (point !== null && (yMax === undefined || point > yMax)) {
@@ -51,18 +50,25 @@ export function GraphPainter(canvas, scaling) {
 
     function drawYAxisLines() {
         context.strokeStyle = '#33335533'
-        context.beginPath()
+        context.fillStyle = '#55555599'
         let nextValue = nextYAxisValue()
+        let lastY
         while (true) {
             let value = nextValue.get()
             let y = yForValue(scaling.transformValue(value))
-            context.moveTo(xStart, y)
-            context.lineTo(xEnd, y)
-            if (y < 0) {
-                break
+            if (lastY === undefined || y <= lastY - 25) {
+                context.beginPath()
+                context.moveTo(xStart, y)
+                context.lineTo(xEnd, y)
+                if (y < 0) {
+                    break
+                }
+                lastY = y
+                context.stroke()
+                context.font = '15px sans-serif';
+                context.fillText(value, 25, y);
             }
         }
-        context.stroke()
     }
 
     function nextYAxisValue() {
