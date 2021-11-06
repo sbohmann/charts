@@ -35,14 +35,16 @@ export function LogarithmicScaling(data, positiveOnly) {
         if (positiveOnly && value < 0) {
             return null
         }
-        if (value < Math.E) {
-            return interpolatedValue(value)
+        if (value < 1) {
+            if (value < 0) {
+                console.log(value)
+            }
+            return value
+        }
+        if (Math.log.value < 0) {
+            console.log(value)
         }
         return Math.log(value)
-    }
-
-    function interpolatedValue(value) {
-        return value / Math.E
     }
 
     init()

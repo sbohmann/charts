@@ -19,10 +19,10 @@ export function GraphPainter(canvas, scaling) {
     }
 
     function determineDrawingBounds() {
-        xStart = 150
-        xEnd = canvas.width - 150
-        yStart = canvas.height - 150
-        yEnd = 150
+        xStart = 100
+        xEnd = canvas.width - 15
+        yStart = canvas.height - 15
+        yEnd = 15
     }
 
     function determineDataBounds() {
@@ -31,10 +31,11 @@ export function GraphPainter(canvas, scaling) {
                 n = set.points.length
             }
             set.points.forEach(point => {
-                if (point !== null && (!yMin || point < yMin)) {
+                if (point !== null && (yMin === undefined || point < yMin)) {
+                    console.log("yMin goes down to ", point)
                     yMin = point
                 }
-                if (point !== null && (!yMax || point > yMax)) {
+                if (point !== null && (yMax === undefined || point > yMax)) {
                     yMax = point
                 }
             })
@@ -55,8 +56,8 @@ export function GraphPainter(canvas, scaling) {
         while (true) {
             let value = nextValue.get()
             let y = yForValue(scaling.transformValue(value))
-            context.moveTo(0, y)
-            context.lineTo(canvas.width, y)
+            context.moveTo(xStart, y)
+            context.lineTo(xEnd, y)
             if (y < 0) {
                 break
             }
@@ -88,7 +89,6 @@ export function GraphPainter(canvas, scaling) {
                         next = 0
                 }
                 state = (state + 1) % 4
-                console.log(next)
                 return next
             }
         }
