@@ -49,6 +49,13 @@ export function GraphPainter(canvas, data) {
 
     function paintDataSet(set) {
         context.beginPath()
+        let pointsConsidered = paintDataSetPath(set)
+        if (pointsConsidered > 0) {
+            context.stroke()
+        }
+    }
+
+    function paintDataSetPath(set) {
         let pointsConsidered = 0
         for (let index = 0; index < set.points.length; ++index) {
             if (set.points[index] !== null) {
@@ -62,9 +69,7 @@ export function GraphPainter(canvas, data) {
                 ++pointsConsidered
             }
         }
-        if (pointsConsidered > 0) {
-            context.stroke()
-        }
+        return pointsConsidered
     }
 
     return {
