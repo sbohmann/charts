@@ -1,4 +1,4 @@
-export function GraphPainter(canvas, scaling) {
+export function GraphPainter(canvas, scaling, minimumDate) {
     const context = canvas.getContext('2d')
     const data = scaling.transformedData
 
@@ -7,7 +7,7 @@ export function GraphPainter(canvas, scaling) {
     let xScale, yScale
 
     function run() {
-        determineDrawingBounds()
+        setDrawingBounds()
         determineDataBounds()
         determineScales()
         context.clearRect(0, 0, canvas.width, canvas.height)
@@ -15,13 +15,14 @@ export function GraphPainter(canvas, scaling) {
         context.fillRect(0, 0, canvas.width, canvas.height)
         context.lineWidth = 5
         drawYAxisLines()
+        drawDates()
         data.forEach(paintDataSet)
     }
 
-    function determineDrawingBounds() {
+    function setDrawingBounds() {
         xStart = 100
         xEnd = canvas.width - 15
-        yStart = canvas.height - 15
+        yStart = canvas.height - 55
         yEnd = 25
     }
 
@@ -71,6 +72,13 @@ export function GraphPainter(canvas, scaling) {
                 context.fillText(value, xStart - 5, y + 5);
             }
         }
+    }
+
+    function drawDates() {
+        context.font = '25px sans-serif';
+        context.textAlign = 'start'
+        context.fillStyle = '#666666'
+        context.fillText(minimumDate.toString(), xStart, yStart + 35);
     }
 
     function NextYAxisValue() {

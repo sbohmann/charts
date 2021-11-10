@@ -8,8 +8,8 @@ const USE_FAKE_DATA = false
 
 const paddedData = buildPaddedData(USE_FAKE_DATA ? fake : data)
 
-const linearScaling = LinearScaling(paddedData, true)
-const logarithmicScaling = LogarithmicScaling(paddedData, true)
+const linearScaling = LinearScaling(paddedData.values, true)
+const logarithmicScaling = LogarithmicScaling(paddedData.values, true)
 
 let logarithmic = true
 let scaling
@@ -32,7 +32,7 @@ function initialize() {
     }
 
     function createGraphPainter() {
-        graphPainter = GraphPainter(canvas, scaling)
+        graphPainter = GraphPainter(canvas, scaling, paddedData.minimumDate)
     }
 
     function refreshCanvas() {
