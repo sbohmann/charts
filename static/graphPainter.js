@@ -51,7 +51,7 @@ export function GraphPainter(canvas, scaling) {
     function drawYAxisLines() {
         context.strokeStyle = '#33335533'
         context.fillStyle = '#55555599'
-        let nextValue = nextYAxisValue()
+        let nextValue = NextYAxisValue()
         let lastY
         while (true) {
             let value = nextValue.get()
@@ -73,7 +73,7 @@ export function GraphPainter(canvas, scaling) {
         }
     }
 
-    function nextYAxisValue() {
+    function NextYAxisValue() {
         let next
         let state = -1
         let base = 1
