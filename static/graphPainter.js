@@ -65,8 +65,10 @@ export function GraphPainter(canvas, scaling) {
                 }
                 lastY = y
                 context.stroke()
-                context.font = '15px sans-serif';
-                context.fillText(value, 25, y);
+                context.font = '25px sans-serif';
+                context.textAlign = 'end'
+                context.fillStyle = '#666666'
+                context.fillText(value, xStart - 5, y + 5);
             }
         }
     }

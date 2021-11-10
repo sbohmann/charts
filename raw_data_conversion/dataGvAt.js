@@ -35,8 +35,6 @@ function emsInzidenzen() {
         previous = rawPoint
     }
 
-    console.log(points)
-
     let datasetName = 'inzidenzen'
     const datasets = [datasetName]
     const dataRows = new Map()
@@ -88,8 +86,6 @@ function hospitalisierungUndIntensiv() {
             previous = rawPoint
         }
 
-        console.log(points)
-
         let datasetName = 'hospitalisierung'
         const datasets = [datasetName]
         const dataRows = new Map()
@@ -115,8 +111,6 @@ function hospitalisierungUndIntensiv() {
             previous = rawPoint
         }
 
-        console.log(points)
-
         let datasetName = 'intensiv'
         const datasets = [datasetName]
         const dataRows = new Map()
@@ -134,9 +128,11 @@ function hospitalisierungUndIntensiv() {
         writeIntensiv()]
 }
 
+console.log("Writing static/data.js")
+
 let inzidenzen = emsInzidenzen()
 let [hospitalisierung, intensiv] = hospitalisierungUndIntensiv()
 let text = [inzidenzen, hospitalisierung, intensiv].join(', ')
 
-let dataTemplate = fs.readFileSync('raw_data/templates/data.js', 'utf-8')
+let dataTemplate = fs.readFileSync('raw_data/templates/data.js.template', 'utf-8')
 fs.writeFileSync('static/data.js', dataTemplate.replace('@_data_gv_at;', text), 'utf-8')

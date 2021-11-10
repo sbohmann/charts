@@ -5,7 +5,6 @@ module.exports.forDatasets = function (datasetNames, dataRows) {
     function result() {
         determineDateLimits()
         collectData()
-        console.log(data)
         return buildOutput()
     }
 
