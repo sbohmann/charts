@@ -77,7 +77,6 @@ export function GraphPainter(canvas, scaling) {
         let next
         let state = -1
         let base = 1
-
         return {
             get() {
                 switch (state) {
