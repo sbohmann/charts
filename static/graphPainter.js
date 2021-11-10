@@ -75,10 +75,15 @@ export function GraphPainter(canvas, scaling, minimumDate) {
     }
 
     function drawDates() {
+        context.strokeStyle = '#33333333'
+        context.beginPath()
+        context.moveTo(xStart, yEnd)
+        context.lineTo(xStart, yStart + 20)
+        context.stroke()
         context.font = '25px sans-serif';
         context.textAlign = 'start'
         context.fillStyle = '#666666'
-        context.fillText(minimumDate.toString(), xStart, yStart + 35);
+        context.fillText(minimumDate.toString(), xStart, yStart + 42);
     }
 
     function NextYAxisValue() {
