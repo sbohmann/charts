@@ -75,15 +75,31 @@ export function GraphPainter(canvas, scaling, minimumDate) {
     }
 
     function drawDates() {
-        context.strokeStyle = '#33333333'
-        context.beginPath()
-        context.moveTo(xStart, yEnd)
-        context.lineTo(xStart, yStart + 20)
-        context.stroke()
-        context.font = '25px sans-serif';
-        context.textAlign = 'start'
-        context.fillStyle = '#666666'
-        context.fillText(minimumDate.toString(), xStart, yStart + 42);
+        let date = minimumDate
+        let lastDate = minimumDate
+        let lastX = xStart
+        let first = true
+        while (true) {
+            let x = xStart + xScale * JSJoda.ChronoUnit.DAYS.between(lastDate, date)
+            console.log(x)
+            if (x > xEnd - 100) {
+                break
+            }
+            if (first || x > lastX + 200) {
+                context.strokeStyle = '#33333333'
+                context.beginPath()
+                context.moveTo(x, yEnd)
+                context.lineTo(x, yStart + 20)
+                context.stroke()
+                context.font = '25px sans-serif';
+                context.textAlign = 'start'
+                context.fillStyle = '#666666'
+                context.fillText(date.toString(), x, yStart + 42);
+                lastX = x
+            }
+            date = date.plusMonths(1)
+            first = false
+        }
     }
 
     function NextYAxisValue() {
