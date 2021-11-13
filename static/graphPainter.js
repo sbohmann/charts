@@ -81,10 +81,10 @@ export function GraphPainter(canvas, scaling, yAxisValues, minimumDate) {
         let first = true
         while (true) {
             let x = xStart + xScale * JSJoda.ChronoUnit.DAYS.between(lastDate, date)
-            if (x > xEnd - 100) {
+            if (x > xEnd) {
                 break
             }
-            if (first || x > lastX + 200) {
+            if ((first || x > lastX + 200) && x < xEnd - 100) {
                 context.strokeStyle = '#33333333'
                 context.beginPath()
                 context.moveTo(x, yEnd)
@@ -95,6 +95,12 @@ export function GraphPainter(canvas, scaling, yAxisValues, minimumDate) {
                 context.fillStyle = '#666666'
                 context.fillText(date.toString(), x, yStart + 42);
                 lastX = x
+            } else {
+                context.strokeStyle = '#33333311'
+                context.beginPath()
+                context.moveTo(x, yEnd)
+                context.lineTo(x, yStart)
+                context.stroke()
             }
             date = date.plusMonths(1)
             first = false

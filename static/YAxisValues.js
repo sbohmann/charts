@@ -28,11 +28,15 @@ export function DecimalYAxisValues() {
 }
 
 export function BinaryYAxisValues() {
-    let value = 1
+    let value = 0
     return {
         get() {
             let result = value
-            value *= 2
+            if (value === 0) {
+                value = 1
+            } else {
+                value *= 2
+            }
             return result
         }
     }
