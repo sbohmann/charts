@@ -2,6 +2,7 @@ import {GraphPainter} from './graphPainter.js'
 import {data, fake} from './data.js'
 import {LogarithmicScaling} from './logarithmicScaling.js'
 import {LinearScaling} from './linearScaling.js'
+import {DecimalYAxisValues, BinaryYAxisValues} from './YAxisValues.js'
 import {buildPaddedData} from './dataPadding.js'
 
 const USE_FAKE_DATA = false
@@ -12,13 +13,16 @@ const linearScaling = LinearScaling(paddedData.values, true)
 const logarithmicScaling = LogarithmicScaling(paddedData.values, true)
 
 let logarithmic = true
+let binary = false
 let scaling
+let yAxisValues
 
-function setCurrentScaling() {
+function setCurrentConfiguration() {
     scaling = logarithmic ? logarithmicScaling : linearScaling
+    yAxisValues = binary ? BinaryYAxisValues : DecimalYAxisValues
 }
 
-setCurrentScaling()
+setCurrentConfiguration()
 
 function initialize() {
     const canvas = document.getElementById('canvas')
@@ -28,11 +32,12 @@ function initialize() {
         createGraphPainter()
         window.onresize = refreshCanvas
         refreshCanvas()
-        connectSettings()
+        connectScalingSettings()
+        connectYAxisSettings()
     }
 
     function createGraphPainter() {
-        graphPainter = GraphPainter(canvas, scaling, paddedData.minimumDate)
+        graphPainter = GraphPainter(canvas, scaling, yAxisValues, paddedData.minimumDate)
     }
 
     function refreshCanvas() {
@@ -41,7 +46,7 @@ function initialize() {
         graphPainter.run()
     }
 
-    function connectSettings() {
+    function connectScalingSettings() {
         const linearButton = document.getElementById('linear')
         const logarithmicButton = document.getElementById('logarithmic')
         const activeButton = logarithmic ? logarithmicButton : linearButton
@@ -50,9 +55,25 @@ function initialize() {
         logarithmicButton.onclick = () => setLogarithmicScaling(true)
     }
 
+    function connectYAxisSettings() {
+        const decimalButton = document.getElementById('decimal')
+        const binaryButton = document.getElementById('binary')
+        const activeButton = binary ? binaryButton : decimalButton
+        activeButton.checked = true
+        decimalButton.onclick = () => setYAxisValues(false)
+        binaryButton.onclick = () => setYAxisValues(true)
+    }
+
     function setLogarithmicScaling(active) {
         logarithmic = active
-        setCurrentScaling()
+        setCurrentConfiguration()
+        createGraphPainter()
+        refreshCanvas()
+    }
+
+    function setYAxisValues(newBinary) {
+        binary = newBinary
+        setCurrentConfiguration()
         createGraphPainter()
         refreshCanvas()
     }

@@ -1,4 +1,4 @@
-export function GraphPainter(canvas, scaling, minimumDate) {
+export function GraphPainter(canvas, scaling, yAxisValues, minimumDate) {
     const context = canvas.getContext('2d')
     const data = scaling.transformedData
 
@@ -52,16 +52,16 @@ export function GraphPainter(canvas, scaling, minimumDate) {
     function drawYAxisLines() {
         context.strokeStyle = '#33335533'
         context.fillStyle = '#55555599'
-        let nextValue = NextYAxisValue()
+        let values = yAxisValues()
         let lastY
         while (true) {
-            let value = nextValue.get()
+            let value = values.get()
             let y = yForValue(scaling.transformValue(value))
             if (lastY === undefined || y <= lastY - 25) {
                 context.beginPath()
                 context.moveTo(xStart, y)
                 context.lineTo(xEnd, y)
-                if (y < 5) {
+                if (y < 15) {
                     break
                 }
                 lastY = y
@@ -81,7 +81,6 @@ export function GraphPainter(canvas, scaling, minimumDate) {
         let first = true
         while (true) {
             let x = xStart + xScale * JSJoda.ChronoUnit.DAYS.between(lastDate, date)
-            console.log(x)
             if (x > xEnd - 100) {
                 break
             }
@@ -99,35 +98,6 @@ export function GraphPainter(canvas, scaling, minimumDate) {
             }
             date = date.plusMonths(1)
             first = false
-        }
-    }
-
-    function NextYAxisValue() {
-        let next
-        let state = -1
-        let base = 1
-        return {
-            get() {
-                switch (state) {
-                    case 0:
-                        next = base
-                        break
-                    case 1:
-                        next = base * 2
-                        break
-                    case 2:
-                        next = base * 5
-                        break
-                    case 3:
-                        base *= 10
-                        next = base
-                        break
-                    default:
-                        next = 0
-                }
-                state = (state + 1) % 4
-                return next
-            }
         }
     }
 
