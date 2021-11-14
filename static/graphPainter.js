@@ -1,3 +1,5 @@
+import shortenedAxisLabel from './ShortenedAxisLabel.js'
+
 export function GraphPainter(canvas, scaling, yAxisValues, minimumDate) {
     const context = canvas.getContext('2d')
     const data = scaling.transformedData
@@ -69,7 +71,7 @@ export function GraphPainter(canvas, scaling, yAxisValues, minimumDate) {
                 context.font = '25px sans-serif';
                 context.textAlign = 'end'
                 context.fillStyle = '#666666'
-                context.fillText(value, xStart - 5, y + 5);
+                context.fillText(shortenedAxisLabel(value), xStart - 5, y + 5);
             }
         }
     }

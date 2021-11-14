@@ -13,7 +13,7 @@ const linearScaling = LinearScaling(paddedData.values, true)
 const logarithmicScaling = LogarithmicScaling(paddedData.values, true)
 
 let logarithmic = true
-let binary = false
+let binary = true
 let scaling
 let yAxisValues
 
