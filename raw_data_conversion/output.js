@@ -35,8 +35,15 @@ module.exports.forDatasets = function (datasetNames, dataRows) {
         let output = []
         for (const name of datasetNames) {
             let values = []
+            let previousValue = null
             for (let date = minimumDate; date.compareTo(maximumDate) <= 0; date = date.plusDays(1)) {
-                values.push(data.get(date.toString()).get(name))
+                let value = data.get(date.toString()).get(name)
+                if (value != null) {
+                    values.push(value)
+                } else {
+                    values.push(0)
+                }
+                previousValue = value
             }
             output.push({
                 name: name,
