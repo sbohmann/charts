@@ -56,9 +56,7 @@ function emsInzidenzen(region) {
 
     const result = output.forDatasets(datasets, dataRows)
 
-    let text = JSON.stringify(result[0])
-    fs.writeFileSync('data/inzidenzen.json', text)
-    return text
+    return JSON.stringify(result[0])
 }
 
 function hospitalisierungUndIntensiv(region) {
