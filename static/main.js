@@ -25,6 +25,10 @@ function setCurrentConfiguration() {
     yAxisValues = binary ? BinaryYAxisValues : DecimalYAxisValues
 }
 
+function setDataset(datasetName) {
+
+}
+
 setCurrentConfiguration()
 
 function initialize() {
@@ -37,6 +41,7 @@ function initialize() {
         refreshCanvas()
         connectScalingSettings()
         connectYAxisSettings()
+        connectDatasetSettings()
     }
 
     function createGraphPainter() {
@@ -58,6 +63,13 @@ function initialize() {
         logarithmicButton.onclick = () => setLogarithmicScaling(true)
     }
 
+    function setLogarithmicScaling(active) {
+        logarithmic = active
+        setCurrentConfiguration()
+        createGraphPainter()
+        refreshCanvas()
+    }
+
     function connectYAxisSettings() {
         const decimalButton = document.getElementById('decimal')
         const binaryButton = document.getElementById('binary')
@@ -67,15 +79,39 @@ function initialize() {
         binaryButton.onclick = () => setYAxisValues(true)
     }
 
-    function setLogarithmicScaling(active) {
-        logarithmic = active
+    function setYAxisValues(newBinary) {
+        binary = newBinary
         setCurrentConfiguration()
         createGraphPainter()
         refreshCanvas()
     }
 
-    function setYAxisValues(newBinary) {
-        binary = newBinary
+    function connectDatasetSettings() {
+        let datasetNames = [
+            'oesterreichMitWikipedia',
+            'oesterreich',
+            'wien',
+            'niederoesterreich',
+            'oberoesterreich',
+            'burgenland',
+            'steiermark',
+            'kaernten',
+            'salzburg',
+            'tirol',
+            'vorarlberg']
+        for (let datasetName of datasetNames) {
+            let button = document.getElementById(datasetName)
+            if (datasetName === dataset) {
+                button.checked = true
+            }
+            button.onclick = () => {
+                setDataset(datasetName)
+            }
+        }
+    }
+
+    function setDataset(datasetName) {
+        dataset = datasetName
         setCurrentConfiguration()
         createGraphPainter()
         refreshCanvas()

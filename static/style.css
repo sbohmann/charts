@@ -38,3 +38,7 @@ body {
     height: 100%;
     border: solid 1px #ccc;
 }
+
+label {
+    margin-right: 20px;
+}
