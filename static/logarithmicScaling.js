@@ -36,15 +36,9 @@ export function LogarithmicScaling(data, positiveOnly) {
             return null
         }
         if (value < 1) {
-            if (value < 0) {
-                console.log(value)
-            }
-            return value
+            return value - 1
         }
-        if (Math.log.value < 0) {
-            console.log(value)
-        }
-        return Math.log(value)
+        return Math.log(value) / Math.log(2)
     }
 
     init()
