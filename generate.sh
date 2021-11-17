@@ -8,3 +8,5 @@ if [[ ! -e static/libraries/js-joda.js ]]; then cp node_modules/@js-joda/core/di
 node raw_data_conversion/dataGvAt.js
 echo running "[$generate_js_location]"
 node "$generate_js_location"
+ls *.sh
+
