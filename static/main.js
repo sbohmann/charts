@@ -7,17 +7,20 @@ import {buildPaddedData} from './dataPadding.js'
 
 const USE_FAKE_DATA = false
 
-const paddedData = buildPaddedData(USE_FAKE_DATA ? fake : data)
-
-const linearScaling = LinearScaling(paddedData.values, true)
-const logarithmicScaling = LogarithmicScaling(paddedData.values, true)
+let paddedData
+let linearScaling
+let logarithmicScaling
 
 let logarithmic = true
 let binary = true
+let dataset = 'oesterreich'
 let scaling
 let yAxisValues
 
 function setCurrentConfiguration() {
+    paddedData = buildPaddedData(USE_FAKE_DATA ? fake : data[dataset])
+    linearScaling = LinearScaling(paddedData.values, true)
+    logarithmicScaling = LogarithmicScaling(paddedData.values, true)
     scaling = logarithmic ? logarithmicScaling : linearScaling
     yAxisValues = binary ? BinaryYAxisValues : DecimalYAxisValues
 }
