@@ -13,7 +13,7 @@ let logarithmicScaling
 
 let logarithmic = true
 let binary = true
-let dataset = 'oesterreich'
+let dataset = 'oesterreichGesamt'
 let scaling
 let yAxisValues
 
@@ -88,7 +88,7 @@ function initialize() {
 
     function connectDatasetSettings() {
         let datasetNames = [
-            'oesterreichMitWikipedia',
+            'oesterreichGesamt',
             'oesterreich',
             'wien',
             'niederoesterreich',

@@ -3,7 +3,7 @@ const joda = require('@js-joda/core')
 const output = require('./output')
 
 const regions = [
-    {inputName: 'Österreich', outputName: 'oesterreichMitWikipedia'},
+    {inputName: 'Österreich', outputName: 'oesterreichGesamt'},
     {inputName: 'Österreich', outputName: 'oesterreich'},
     {inputName: 'Wien', outputName: 'wien'},
     {inputName: 'Niederösterreich', outputName: 'niederoesterreich'},
@@ -145,7 +145,7 @@ function hospitalisierungUndIntensiv(region) {
 
 console.log("Writing static/data.js")
 
-let result = fs.readFileSync('raw_data/templates/data.js.template', 'utf-8')
+let result = fs.readFileSync('templates/data.js.template', 'utf-8')
 
 for (let region of regions) {
     let inzidenzen = emsInzidenzen(region.inputName)
