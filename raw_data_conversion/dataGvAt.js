@@ -108,9 +108,7 @@ function hospitalisierungUndIntensiv(region) {
 
         const result = output.forDatasets(datasets, dataRows)
 
-        let text = JSON.stringify(result[0])
-        fs.writeFileSync('data/hospitalisierung.json', text)
-        return text
+        return JSON.stringify(result[0])
     }
 
     function writeIntensiv() {
@@ -133,9 +131,7 @@ function hospitalisierungUndIntensiv(region) {
 
         const result = output.forDatasets(datasets, dataRows)
 
-        let text = JSON.stringify(result[0])
-        fs.writeFileSync('data/intensiv.json', text)
-        return text
+        return JSON.stringify(result[0])
     }
 
     return [
