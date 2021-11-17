@@ -77,16 +77,16 @@ export function GraphPainter(canvas, scaling, yAxisValues, minimumDate) {
     }
 
     function drawDates() {
-        let date = minimumDate
+        let date = minimumDate.withDayOfMonth(1)
         let lastDate = minimumDate
-        let lastX = xStart
+        let lastX
         let first = true
         while (true) {
             let x = xStart + xScale * JSJoda.ChronoUnit.DAYS.between(lastDate, date)
             if (x > xEnd) {
                 break
             }
-            if ((first || x > lastX + 200) && x < xEnd - 100) {
+            if (x >= xStart && (first || lastX === undefined || x > lastX + 200) && x < xEnd - 100) {
                 context.strokeStyle = '#33333333'
                 context.beginPath()
                 context.moveTo(x, yEnd)
