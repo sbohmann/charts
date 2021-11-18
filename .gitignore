@@ -3,5 +3,6 @@
 /data
 /raw_data
 /static/libraries
+/static/data.js
 package-lock.json
 /node_modules
