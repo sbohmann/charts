@@ -10,38 +10,53 @@ html
         link(rel="icon" type="image/png" href="icon.png")
     body
         div#settings
-            label='Linear'
+            label
                 input(type='radio' id='linear' name='scaling' value='linear')
-            label='Logarithmisch'
+                | Linear
+            label
                 input(type='radio' id='logarithmic' name='scaling' value='logarithmic')
+                | Logarithmisch
             br
-            label='Dezimal'
+            label
                 input(type='radio' id='decimal' name='yAxis' value='linear')
-            label='Binär'
+                | Dezimal
+            label
                 input(type='radio' id='binary' name='yAxis' value='logarithmic')
+                | Binär
             br
-            label='Österreich gesamt'
+            label
                 input(type='radio' id='oesterreichGesamt' name='dataset' value='oesterreichGesamt')
-            label='Österreich'
+                | Österreich gesamt
+            label
                 input(type='radio' id='oesterreich' name='dataset' value='oesterreich')
-            label='Wien'
+                | Österreich
+            label
                 input(type='radio' id='wien' name='dataset' value='wien')
-            label='Niederösterreich'
+                | Wien
+            label
                 input(type='radio' id='niederoesterreich' name='dataset' value='niederoesterreich')
-            label='Oberösterreich'
+                | Niederösterreich
+            label
                 input(type='radio' id='oberoesterreich' name='dataset' value='oberoesterreich')
-            label='Burgenland'
+                | Oberösterreich
+            label
                 input(type='radio' id='burgenland' name='dataset' value='burgenland')
-            label='Steiermark'
+                | Burgenland
+            label
                 input(type='radio' id='steiermark' name='dataset' value='steiermark')
-            label='Kärnten'
+                | Steiermark
+            label
                 input(type='radio' id='kaernten' name='dataset' value='kaernten')
-            label='Salzburg'
+                | Kärnten
+            label
                 input(type='radio' id='salzburg' name='dataset' value='salzburg')
-            label='Tirol'
+                | Salzburg
+            label
                 input(type='radio' id='tirol' name='dataset' value='tirol')
-            label='Vorarlberg'
+                | Tirol
+            label
                 input(type='radio' id='vorarlberg' name='dataset' value='vorarlberg')
+                | Vorarlberg
 
 
         div#chart
