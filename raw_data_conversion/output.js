@@ -36,8 +36,7 @@ module.exports.forDatasets = function (datasetNames, dataRows) {
         for (const name of datasetNames) {
             let values = []
             let previousValue = null
-            // let lastDate = minimumDate
-            for (let date = minimumDate; date.compareTo(lastDate) <= 0; date = date.plusDays(1)) {
+            for (let date = minimumDate; date.compareTo(maximumDate) <= 0; date = date.plusDays(1)) {
                 let value = data.get(date.toString()).get(name)
                 if (value != null) {
                     values.push(value)
@@ -45,12 +44,11 @@ module.exports.forDatasets = function (datasetNames, dataRows) {
                     values.push(0)
                 }
                 previousValue = value
-                // lastDate = date
             }
             output.push({
                 name: name,
                 firstDate: minimumDate,
-                // lastDate: lastDate,
+                lastDate: maximumDate,
                 points: values
             })
         }
