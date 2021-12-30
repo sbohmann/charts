@@ -13,11 +13,25 @@ let logarithmicScaling
 
 let logarithmic = true
 let binary = true
-let dataset = 'oesterreichGesamt'
+let dataset
 let scaling
 let yAxisValues
 
+let datasetNames = [
+    'oesterreichGesamt',
+    'oesterreich',
+    'wien',
+    'niederoesterreich',
+    'oberoesterreich',
+    'burgenland',
+    'steiermark',
+    'kaernten',
+    'salzburg',
+    'tirol',
+    'vorarlberg']
+
 function setCurrentConfiguration() {
+    parseQuery()
     paddedData = buildPaddedData(USE_FAKE_DATA ? fake : data[dataset])
     linearScaling = LinearScaling(paddedData.values, true)
     logarithmicScaling = LogarithmicScaling(paddedData.values, true)
@@ -25,8 +39,21 @@ function setCurrentConfiguration() {
     yAxisValues = binary ? BinaryYAxisValues : DecimalYAxisValues
 }
 
-function setDataset(datasetName) {
+function parseQuery() {
+    let params = new URLSearchParams()
 
+    let datasetName = params.get('dataset')
+    if (datasetName != null && datasetNames.includes(datasetName)) {
+        dataset = datasetName
+    } else {
+        dataset = 'oesterreichGesamt'
+    }
+
+    let scalingName = params.get('scaling')
+    logarithmic = (scalingName !== 'linear')
+
+    let yName = params.get('y')
+    binary = (yName !== 'decimal')
 }
 
 setCurrentConfiguration()
@@ -87,18 +114,6 @@ function initialize() {
     }
 
     function connectDatasetSettings() {
-        let datasetNames = [
-            'oesterreichGesamt',
-            'oesterreich',
-            'wien',
-            'niederoesterreich',
-            'oberoesterreich',
-            'burgenland',
-            'steiermark',
-            'kaernten',
-            'salzburg',
-            'tirol',
-            'vorarlberg']
         for (let datasetName of datasetNames) {
             let button = document.getElementById(datasetName)
             if (datasetName === dataset) {
