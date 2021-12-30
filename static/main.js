@@ -11,8 +11,8 @@ let paddedData
 let linearScaling
 let logarithmicScaling
 
-let logarithmic = true
-let binary = true
+let logarithmic
+let binary
 let dataset
 let scaling
 let yAxisValues
