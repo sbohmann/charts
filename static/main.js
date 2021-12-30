@@ -40,7 +40,7 @@ function setCurrentConfiguration() {
 }
 
 function parseQuery() {
-    let params = new URLSearchParams()
+    let params = new URLSearchParams(window.location.search)
 
     let datasetName = params.get('dataset')
     if (datasetName != null && datasetNames.includes(datasetName)) {
