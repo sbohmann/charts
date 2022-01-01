@@ -31,7 +31,6 @@ let datasetNames = [
     'vorarlberg']
 
 function setCurrentConfiguration() {
-    parseQuery()
     paddedData = buildPaddedData(USE_FAKE_DATA ? fake : data[dataset])
     linearScaling = LinearScaling(paddedData.values, true)
     logarithmicScaling = LogarithmicScaling(paddedData.values, true)
@@ -56,6 +55,7 @@ function parseQuery() {
     binary = (yName !== 'decimal')
 }
 
+parseQuery()
 setCurrentConfiguration()
 
 function initialize() {
