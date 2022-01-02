@@ -17,6 +17,8 @@ let dataset
 let scaling
 let yAxisValues
 
+let shareLink = document.getElementById("shareLink")
+
 let datasetNames = [
     'oesterreichGesamt',
     'oesterreich',
@@ -36,6 +38,7 @@ function setCurrentConfiguration() {
     logarithmicScaling = LogarithmicScaling(paddedData.values, true)
     scaling = logarithmic ? logarithmicScaling : linearScaling
     yAxisValues = binary ? BinaryYAxisValues : DecimalYAxisValues
+    shareLink.href = '#'
 }
 
 function parseQuery() {
