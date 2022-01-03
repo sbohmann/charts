@@ -15,7 +15,7 @@ export function GraphPainter(canvas, scaling, yAxisValues, minimumDate) {
         context.clearRect(0, 0, canvas.width, canvas.height)
         context.fillStyle = "#ffeedd"
         context.fillRect(0, 0, canvas.width, canvas.height)
-        context.lineWidth = 5
+        context.lineWidth = 1.5
         drawYAxisLines()
         drawDates()
         data.forEach(paintDataSet)
@@ -55,7 +55,7 @@ export function GraphPainter(canvas, scaling, yAxisValues, minimumDate) {
         context.strokeStyle = '#33335533'
         context.fillStyle = '#55555599'
         let values = yAxisValues()
-        let lastY
+        let lastY = undefined
         while (true) {
             let value = values.get()
             let y = yForValue(scaling.transformValue(value))
@@ -79,7 +79,7 @@ export function GraphPainter(canvas, scaling, yAxisValues, minimumDate) {
     function drawDates() {
         let date = minimumDate.withDayOfMonth(1)
         let lastDate = minimumDate
-        let lastX
+        let lastX = undefined
         let first = true
         while (true) {
             let x = xStart + xScale * JSJoda.ChronoUnit.DAYS.between(lastDate, date)
