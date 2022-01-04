@@ -15,7 +15,7 @@ export function GraphPainter(canvas, scaling, yAxisValues, minimumDate) {
         context.clearRect(0, 0, canvas.width, canvas.height)
         context.fillStyle = "#ffeedd"
         context.fillRect(0, 0, canvas.width, canvas.height)
-        context.lineWidth = 1.5
+        context.lineWidth = 2.5
         drawYAxisLines()
         drawDates()
         data.forEach(paintDataSet)
