@@ -83,12 +83,6 @@ function initialize() {
         graphPainter = GraphPainter(canvas, scaling, yAxisValues, paddedData.minimumDate)
     }
 
-    function refreshCanvas() {
-        canvas.width = canvas.offsetWidth
-        canvas.height = canvas.offsetHeight
-        graphPainter.run()
-    }
-
     function connectScalingSettings() {
         const linearButton = document.getElementById('linear')
         const logarithmicButton = document.getElementById('logarithmic')
@@ -101,11 +95,8 @@ function initialize() {
     function setLogarithmicScaling(active) {
         logarithmic = active
         setCurrentConfiguration()
-        if (window.location.toString() !== pageLocation) {
-            window.location.replace(pageLocation)
-        }
         createGraphPainter()
-        refreshCanvas()
+        applyChanges()
     }
 
     function connectYAxisSettings() {
@@ -121,7 +112,7 @@ function initialize() {
         binary = newBinary
         setCurrentConfiguration()
         createGraphPainter()
-        refreshCanvas()
+        applyChanges()
     }
 
     function connectDatasetSettings() {
@@ -140,7 +131,20 @@ function initialize() {
         dataset = datasetName
         setCurrentConfiguration()
         createGraphPainter()
+        applyChanges()
+    }
+
+    function applyChanges() {
+        if (window.location.toString() !== pageLocation) {
+            window.location.replace(pageLocation)
+        }
         refreshCanvas()
+    }
+
+    function refreshCanvas() {
+        canvas.width = canvas.offsetWidth
+        canvas.height = canvas.offsetHeight
+        graphPainter.run()
     }
 
     setup()
