@@ -16,9 +16,6 @@ let binary
 let dataset
 let scaling
 let yAxisValues
-let pageLocation
-
-let shareLink = document.getElementById("shareLink")
 
 let datasetNames = [
     'oesterreichGesamt',
@@ -39,11 +36,13 @@ function setCurrentConfiguration() {
     logarithmicScaling = LogarithmicScaling(paddedData.values, true)
     scaling = logarithmic ? logarithmicScaling : linearScaling
     yAxisValues = binary ? BinaryYAxisValues : DecimalYAxisValues
-    pageLocation = window.location.pathname +
+    let pageLocation = window.location.pathname +
         '?dataset=' + dataset +
         '&scaling=' + (logarithmic ? 'logarithmic' : 'linear') +
         '&y=' + (binary ? 'binary' : 'decimal')
-    shareLink.href = pageLocation
+    if (window.location.toString() !== pageLocation) {
+        window.history.pushState("", "", pageLocation)
+    }
 }
 
 function parseQuery() {
@@ -96,7 +95,7 @@ function initialize() {
         logarithmic = active
         setCurrentConfiguration()
         createGraphPainter()
-        applyChanges()
+        refreshCanvas()
     }
 
     function connectYAxisSettings() {
@@ -112,7 +111,7 @@ function initialize() {
         binary = newBinary
         setCurrentConfiguration()
         createGraphPainter()
-        applyChanges()
+        refreshCanvas()
     }
 
     function connectDatasetSettings() {
@@ -131,13 +130,6 @@ function initialize() {
         dataset = datasetName
         setCurrentConfiguration()
         createGraphPainter()
-        applyChanges()
-    }
-
-    function applyChanges() {
-        if (window.location.toString() !== pageLocation) {
-            window.history.pushState("", "", pageLocation)
-        }
         refreshCanvas()
     }
 
