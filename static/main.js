@@ -43,7 +43,9 @@ function setCurrentConfiguration() {
         '&scaling=' + (logarithmic ? 'logarithmic' : 'linear') +
         '&y=' + (binary ? 'binary' : 'decimal')
     shareLink.href = newLocation
-    window.location.replace(newLocation)
+    if (window.location !== newLocation) {
+        window.location.replace(newLocation)
+    }
 }
 
 function parseQuery() {
