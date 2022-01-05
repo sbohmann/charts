@@ -38,10 +38,12 @@ function setCurrentConfiguration() {
     logarithmicScaling = LogarithmicScaling(paddedData.values, true)
     scaling = logarithmic ? logarithmicScaling : linearScaling
     yAxisValues = binary ? BinaryYAxisValues : DecimalYAxisValues
-    shareLink.href = window.location.pathname +
+    let newLocation = window.location.pathname +
         '?dataset=' + dataset +
         '&scaling=' + (logarithmic ? 'logarithmic' : 'linear') +
         '&y=' + (binary ? 'binary' : 'decimal')
+    shareLink.href = newLocation
+    window.location.replace(newLocation)
 }
 
 function parseQuery() {
