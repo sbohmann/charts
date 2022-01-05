@@ -136,7 +136,7 @@ function initialize() {
 
     function applyChanges() {
         if (window.location.toString() !== pageLocation) {
-            window.location.replace(pageLocation)
+            window.history.pushState("", "", pageLocation)
         }
         refreshCanvas()
     }
