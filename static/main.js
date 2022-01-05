@@ -101,7 +101,7 @@ function initialize() {
     function setLogarithmicScaling(active) {
         logarithmic = active
         setCurrentConfiguration()
-        if (window.location !== pageLocation) {
+        if (window.location.toString() !== pageLocation) {
             window.location.replace(pageLocation)
         }
         createGraphPainter()
