@@ -16,6 +16,7 @@ let binary
 let dataset
 let scaling
 let yAxisValues
+let pageLocation
 
 let shareLink = document.getElementById("shareLink")
 
@@ -38,14 +39,11 @@ function setCurrentConfiguration() {
     logarithmicScaling = LogarithmicScaling(paddedData.values, true)
     scaling = logarithmic ? logarithmicScaling : linearScaling
     yAxisValues = binary ? BinaryYAxisValues : DecimalYAxisValues
-    let newLocation = window.location.pathname +
+    pageLocation = window.location.pathname +
         '?dataset=' + dataset +
         '&scaling=' + (logarithmic ? 'logarithmic' : 'linear') +
         '&y=' + (binary ? 'binary' : 'decimal')
     shareLink.href = newLocation
-    if (window.location !== newLocation) {
-        window.location.replace(newLocation)
-    }
 }
 
 function parseQuery() {
@@ -103,6 +101,9 @@ function initialize() {
     function setLogarithmicScaling(active) {
         logarithmic = active
         setCurrentConfiguration()
+        if (window.location !== newLocation) {
+            window.location.replace(newLocation)
+        }
         createGraphPainter()
         refreshCanvas()
     }
