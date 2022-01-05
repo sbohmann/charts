@@ -43,7 +43,7 @@ function setCurrentConfiguration() {
         '?dataset=' + dataset +
         '&scaling=' + (logarithmic ? 'logarithmic' : 'linear') +
         '&y=' + (binary ? 'binary' : 'decimal')
-    shareLink.href = newLocation
+    shareLink.href = pageLocation
 }
 
 function parseQuery() {
@@ -101,8 +101,8 @@ function initialize() {
     function setLogarithmicScaling(active) {
         logarithmic = active
         setCurrentConfiguration()
-        if (window.location !== newLocation) {
-            window.location.replace(newLocation)
+        if (window.location !== pageLocation) {
+            window.location.replace(pageLocation)
         }
         createGraphPainter()
         refreshCanvas()
