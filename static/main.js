@@ -32,6 +32,8 @@ let datasetNames = [
 
 function setCurrentConfiguration() {
     paddedData = buildPaddedData(USE_FAKE_DATA ? fake : data[dataset])
+    document.getElementById('lastDateLabel')
+        .appendChild(document.createTextNode(paddedData.maximumDate.toString()))
     linearScaling = LinearScaling(paddedData.values, true)
     logarithmicScaling = LogarithmicScaling(paddedData.values, true)
     scaling = logarithmic ? logarithmicScaling : linearScaling

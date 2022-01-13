@@ -30,7 +30,7 @@ export function GraphPainter(canvas, scaling, yAxisValues, minimumDate) {
 
     function determineDataBounds() {
         data.forEach(set => {
-            if (!n || set.points.length > n) {
+            if (n === undefined || set.points.length > n) {
                 n = set.points.length
             }
             set.points.forEach(point => {
