@@ -38,7 +38,7 @@ export function LogarithmicScaling(data, positiveOnly) {
         if (value < 1) {
             return value - 1
         }
-        return Math.log(value) / Math.log(2)
+        return Math.log(value)
     }
 
     init()
