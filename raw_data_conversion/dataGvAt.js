@@ -42,7 +42,10 @@ function emsInzidenzen(region) {
     for (const rawPoint of accumulation) {
         if (previous) {
             const dayDistance = joda.Period.between(previous.date, rawPoint.date).days()
-            for (let date = previous.date.plusDays(1); date.compareTo(rawPoint.date) < 0 && false; date = date.plusDays(1)) {
+            for (let date = previous.date.plusDays(1); date.compareTo(rawPoint.date) <= 0 && false; date = date.plusDays(1)) {
+                if (dayDistance > 1) {
+                    console.log("pushing date " + date)
+                }
                 points.push({
                     date,
                     value: (rawPoint.value - previous.value) / dayDistance
